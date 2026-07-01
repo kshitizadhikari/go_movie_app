@@ -1,0 +1,14 @@
+.git
+.gitignore
+README.md
+
+bin/
+dist/
+tmp/
+
+.env
+
+.vscode/
+.idea/
+
+node_modules/
