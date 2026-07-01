@@ -10,8 +10,22 @@ func NewBookingService(store BookingStore) *BookingService {
 	}
 }
 
-func (s *BookingService) Book(b Booking) error {
-	return s.store.Book(b)
+func (s *BookingService) HoldSeat(b Booking) (*Booking, error) {
+	res, err := s.store.HoldSeat(b)
+	if err != nil {
+		return nil, err
+	}
+
+	return res, nil
+}
+
+func (s *BookingService) ConfirmSeat(booking_id string) (*Booking, error) {
+	res, err := s.store.ConfirmSeat(booking_id)
+	if err != nil {
+		return nil, err
+	}
+
+	return res, nil
 }
 
 func (s *BookingService) ListBookings(movieId string) []Booking {

@@ -6,7 +6,9 @@ import (
 )
 
 var (
-	ErrSeatAlreadyBooked = errors.New("Seat has already been booked")
+	ErrSeatAlreadyBooked    = errors.New("Seat has already been booked")
+	ErrSeatConfirm          = errors.New("Failed to confirm booking")
+	ErrSeatAlreadyConfirmed = errors.New("Seat has noot been booked yet")
 )
 
 type Booking struct {
@@ -19,6 +21,18 @@ type Booking struct {
 }
 
 type BookingStore interface {
-	Book(b Booking) error
+	HoldSeat(b Booking) (*Booking, error)
+	ConfirmSeat(booking_id string) (*Booking, error)
 	ListBookings(movieId string) []Booking
+}
+
+func (b *Booking) ToResponse() Booking {
+	return Booking{
+		ID:        b.ID,
+		UserID:    b.UserID,
+		MovieID:   b.MovieID,
+		SeatID:    b.SeatID,
+		Status:    b.Status,
+		ExpiresAt: b.ExpiresAt,
+	}
 }
