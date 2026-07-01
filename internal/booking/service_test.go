@@ -27,8 +27,8 @@ func TestBookingConcurrency(t *testing.T) {
 	for i := range numGoRoutines {
 		go func(userNum int) {
 			defer wg.Done()
-			err := svc.Book(Booking{
-				MovieID: "screen-1",
+			_, err := svc.HoldSeat(Booking{
+				MovieID: "movie1",
 				SeatID:  "A1",
 				UserID:  uuid.New().String(),
 			})
